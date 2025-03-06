@@ -1,4 +1,4 @@
-package com.epam.training.gen.ai.examples.semantic.history;
+package com.epam.training.gen.ai.history;
 
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunction;

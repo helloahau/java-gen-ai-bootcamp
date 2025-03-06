@@ -1,4 +1,4 @@
-package com.epam.training.gen.ai.examples.semantic.configuration;
+package com.epam.training.gen.ai.configuration;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.OpenAIClientBuilder;

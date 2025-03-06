@@ -1,4 +1,4 @@
-package com.epam.training.gen.ai.examples.semantic.vector;
+package com.epam.training.gen.ai.vector;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.models.EmbeddingItem;

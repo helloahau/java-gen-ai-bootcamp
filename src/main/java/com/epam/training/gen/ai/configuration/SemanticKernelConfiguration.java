@@ -1,7 +1,7 @@
-package com.epam.training.gen.ai.examples.semantic.configuration;
+package com.epam.training.gen.ai.configuration;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
-import com.epam.training.gen.ai.examples.semantic.plugins.SimplePlugin;
+import com.epam.training.gen.ai.plugins.SimplePlugin;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 import com.microsoft.semantickernel.orchestration.InvocationContext;

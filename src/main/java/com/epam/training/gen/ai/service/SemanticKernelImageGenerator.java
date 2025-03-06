@@ -1,4 +1,4 @@
-package com.epam.training.gen.ai.examples.semantic.service;
+package com.epam.training.gen.ai.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

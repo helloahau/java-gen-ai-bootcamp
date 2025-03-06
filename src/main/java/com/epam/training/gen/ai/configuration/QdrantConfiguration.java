@@ -1,4 +1,4 @@
-package com.epam.training.gen.ai.examples.semantic.configuration;
+package com.epam.training.gen.ai.configuration;
 
 import io.qdrant.client.QdrantClient;
 import io.qdrant.client.QdrantGrpcClient;
