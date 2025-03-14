@@ -19,8 +19,7 @@ public class ChatApi {
 
     @PostMapping("/chat")
     public Map<String, String> chat(@RequestBody Map<String, String> request) {
-        String message = request.get("message");
-        String response = simpleKernelHistory.processWithHistory(message);
+        String response = simpleKernelHistory.processWithHistory(request);
         Map<String, String> jsonResponse = new HashMap<>();
         jsonResponse.put("response", response);
         return jsonResponse;

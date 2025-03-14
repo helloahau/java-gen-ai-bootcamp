@@ -1,12 +1,15 @@
 package com.epam.training.gen.ai.history;
 
 import com.microsoft.semantickernel.Kernel;
+import com.microsoft.semantickernel.orchestration.PromptExecutionSettings;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunction;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunctionArguments;
 import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * Service class for interacting with the AI kernel, maintaining chat history.
@@ -22,18 +25,24 @@ public class SimpleKernelHistory {
 
     private final Kernel kernel;
 
-    public String processWithHistory(String prompt) {
+    public String processWithHistory(Map<String, String> request) {
 
         var chatHistory = new ChatHistory();
 
         var response = kernel.invokeAsync(getChat())
-                .withArguments(getKernelFunctionArguments(prompt, chatHistory))
+                .withArguments(getKernelFunctionArguments(request.get("message"), chatHistory))
+                .withPromptExecutionSettings(PromptExecutionSettings.builder()
+                        .withTemperature(request.get("temperature") != null ? Double.parseDouble(request.get("temperature")) : 1)
+                        .build())
                 .block();
-
-        chatHistory.addUserMessage(prompt);
-        chatHistory.addAssistantMessage(response.getResult());
-        log.info("AI answer:" + response.getResult());
-        return response.getResult();
+        var result = response.getResult();
+        chatHistory.addUserMessage(request.get("message"));
+        chatHistory.addAssistantMessage(result);
+        log.info("AI answer:" + result);
+        if (result.isEmpty()) {
+            result = "Error: Empty response received from OpenAI.";
+        }
+        return result;
     }
 
     /**
