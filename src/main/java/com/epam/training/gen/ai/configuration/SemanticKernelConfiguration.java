@@ -1,7 +1,8 @@
 package com.epam.training.gen.ai.configuration;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
-import com.epam.training.gen.ai.plugins.SimplePlugin;
+import com.epam.training.gen.ai.plugins.TeamsPlugin;
+import com.epam.training.gen.ai.plugins.TimePlugin;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 import com.microsoft.semantickernel.orchestration.InvocationContext;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,24 +50,36 @@ public class SemanticKernelConfiguration {
      * @return an instance of {@link KernelPlugin}
      */
     @Bean
-    public KernelPlugin kernelPlugin() {
+    public KernelPlugin dateTimePlugin() {
         return KernelPluginFactory.createFromObject(
-                new SimplePlugin(), "Simple Plugin");
+                new TimePlugin(), "TimePlugin");
     }
+
+
+    @Bean
+    public KernelPlugin teamsPlugin() {
+        return KernelPluginFactory.createFromObject(
+                new TeamsPlugin(), "TeamsPlugin");
+    }
+
 
     /**
      * Creates a {@link Kernel} bean to manage AI services and plugins.
      *
      * @param chatCompletionService the {@link ChatCompletionService} for handling completions
-     * @param kernelPlugin the {@link KernelPlugin} to be used in the kernel
+     * @param kernelPlugins the {@link KernelPlugin} to be used in the kernel
      * @return an instance of {@link Kernel}
      */
     @Bean
-    public Kernel kernel(ChatCompletionService chatCompletionService, KernelPlugin kernelPlugin) {
-        return Kernel.builder()
-                .withAIService(ChatCompletionService.class, chatCompletionService)
-                .withPlugin(kernelPlugin)
-                .build();
+    public Kernel kernel(ChatCompletionService chatCompletionService,  List<KernelPlugin> kernelPlugins) {
+        Kernel.Builder kernelBuilder = Kernel.builder()
+                .withAIService(ChatCompletionService.class, chatCompletionService);
+
+        for (KernelPlugin plugin : kernelPlugins) {
+            kernelBuilder.withPlugin(plugin);
+        }
+
+        return kernelBuilder.build();
     }
 
     /**
