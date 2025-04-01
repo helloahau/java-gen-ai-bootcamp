@@ -1,4 +1,6 @@
 package com.epam.training.gen.ai.service;
+
+import com.epam.training.gen.ai.pojo.ImageChatCompletionResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

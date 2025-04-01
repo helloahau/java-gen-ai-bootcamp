@@ -2,7 +2,6 @@ package com.epam.training.gen.ai.history;
 
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.orchestration.PromptExecutionSettings;
-import com.microsoft.semantickernel.orchestration.ToolCallBehavior;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunction;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunctionArguments;
 import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
@@ -35,7 +34,6 @@ public class SimpleKernelHistory {
                 .withPromptExecutionSettings(PromptExecutionSettings.builder()
                         .withTemperature(request.get("temperature") != null ? Double.parseDouble(request.get("temperature")) : 1)
                         .build())
-                .withToolCallBehavior(ToolCallBehavior.allowAllKernelFunctions(true))
                 .block();
         var result = response.getResult();
         chatHistory.addUserMessage(request.get("message"));
