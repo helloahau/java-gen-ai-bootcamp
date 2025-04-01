@@ -55,7 +55,11 @@ public class SemanticKernelConfiguration {
                 new TimePlugin(), "TimePlugin");
     }
 
-
+    /**
+     * Creates a {@link KernelPlugin} bean using a simple plugin.
+     *
+     * @return an instance of {@link KernelPlugin}
+     */
     @Bean
     public KernelPlugin teamsPlugin() {
         return KernelPluginFactory.createFromObject(
